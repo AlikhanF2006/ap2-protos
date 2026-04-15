@@ -6,6 +6,7 @@ option go_package = "github.com/AlikhanF2006/ap2-protos-gen/payment;paymentpb";
 
 service PaymentService {
   rpc ProcessPayment (PaymentRequest) returns (PaymentResponse);
+  rpc ListPayments (ListPaymentsRequest) returns (ListPaymentsResponse);
 }
 
 message PaymentRequest {
@@ -18,4 +19,20 @@ message PaymentResponse {
   bool success = 1;
   string transaction_id = 2;
   string message = 3;
+}
+
+message ListPaymentsRequest {
+  string status = 1; // "Authorized" или "Declined"
+}
+
+message PaymentItem {
+  string id = 1;
+  string order_id = 2;
+  string transaction_id = 3;
+  int64 amount = 4;
+  string status = 5;
+}
+
+message ListPaymentsResponse {
+  repeated PaymentItem payments = 1;
 }
